@@ -8,12 +8,44 @@ public class Main {
         books[4] = new FictionBook("FB02", "Mystery Night", 1100, "Sarah Black", "Trinh thám");
         books[5] = new FictionBook("FB03", "Future World", 1000, "Lucy Brown", "Viễn tưởng 2");
 
+        double totalSum = bookSum(books);
+        System.out.println("Tổng tiền 6 cuốn sách (sau khi giảm giá) là: " + totalSum);
+        countBooks(books);
 
-        double sum = 0;
-        for (Book book : books) {
-            sum += book.getPrice();
-        }
-        System.out.println("Tổng tiền của 6 cuốn sách là: " + sum);
     }
 
+    public static double bookSum(Book[] books) {
+        double sum = 0;
+        for (Book book : books) {
+            sum += book.getAmount();
+        }
+        return sum;
+    }
+
+    public static void countBooks(Book[] books) {
+        int javaBooksCount = 0;
+        int vientuongBooksCount = 0;
+        int fictionBooks1000 = 0;
+
+        for (Book book : books) {
+            if (book instanceof ProgrammingBook) {
+                if (((ProgrammingBook) book).getLanguage().equals("Java")) {
+                    javaBooksCount++;
+                }
+            }
+             if (book instanceof FictionBook) {
+                if (((FictionBook) book).getCategory().equals("Viễn tưởng 1")) {
+                    vientuongBooksCount++;
+                }
+                if (book.getAmount() < 1000) {
+                    fictionBooks1000++;
+                }
+            }
+        }
+        System.out.println("Số sách ProgrammingBook có language 'Java' là : " + javaBooksCount);
+        System.out.println("Số sách FictionBook có category 'Viễn tưởng 1' là : " + vientuongBooksCount);
+        System.out.println("Số sách FictionBook có giá < 1000 là : " + fictionBooks1000);
+    }
 }
+
+
